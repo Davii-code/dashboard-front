@@ -1,60 +1,75 @@
-# DashboardFront
+Dashboard Web — Front-end
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.6.
+Interface web para visualizar dados analíticos do projeto dashboard-api.
+Este front consome o endpoint GET /dashboard do backend e exibe os resultados em gráficos (pizza, barras, linhas), além de KPIs (Total, Média, Máximo, Mínimo) e filtros por período.
 
-## Development server
+O que é
 
-To start a local development server, run:
+Objetivo: mostrar, de forma simples e visual, métricas retornadas pelo backend em diferentes tipos de gráfico.
 
-```bash
-ng serve
-```
+Como funciona: o usuário escolhe o tipo de gráfico e o intervalo de datas; o front chama GET /dashboard?tipoGrafico=...&dataInicio=YYYY-MM-DD&dataFim=YYYY-MM-DD; a resposta é renderizada com Chart.js e os KPIs são calculados no cliente.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Tecnologias
 
-## Code scaffolding
+Angular 18 (standalone) — componentes sem AppModule, Reactive Forms e Signals.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Angular Material — datepicker, select e inputs.
 
-```bash
-ng generate component component-name
-```
+Chart.js 4 — gráficos renderizados diretamente (sem ng2-charts).
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+SCSS — tema escuro com gradientes e painel translúcido para filtros.
 
-```bash
-ng generate --help
-```
+Principais decisões
 
-## Building
+Chart.js puro para evitar o erro de binding em <canvas> e ter controle total de estilos.
 
-To build the project run:
+Datas ISO (YYYY-MM-DD): o front converte o valor do datepicker antes de enviar.
 
-```bash
-ng build
-```
+UI focada em legibilidade: filtros em painel translúcido, cores com alto contraste, skeleton durante carregamento.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Integração com a API
 
-## Running unit tests
+Endpoint: GET /dashboard
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Query params:
 
-```bash
-ng test
-```
+tipoGrafico: pie | bar | line
 
-## Running end-to-end tests
+dataInicio: YYYY-MM-DD
 
-For end-to-end (e2e) testing, run:
+dataFim: YYYY-MM-DD
 
-```bash
-ng e2e
-```
+Resposta esperada:
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+{ "type": "line", "labels": ["A","B"], "data": [100,200] }
 
-## Additional Resources
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-"# dashboard-front" 
+ou
+
+{ "message": "Nenhum dado para o período." }
+
+Estrutura (resumo)
+src/
+├─ app/
+│  ├─ app.config.ts
+│  ├─ app.routes.ts
+│  ├─ features/dashboard/
+│  │  ├─ dashboard.component.{ts,html,scss}
+│  └─ shared/
+│     ├─ api/dashboard.service.ts
+│     └─ models/chart-response.ts
+└─ environments/environment.ts
+
+Execução (dev)
+
+Configure o backend em http://localhost:3000.
+
+No front:
+
+npm install
+npm start
+
+
+(Se necessário) crie src/environments/environment.ts:
+
+export const environment = { api: 'http://localhost:3000' };
