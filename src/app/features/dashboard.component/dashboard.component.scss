@@ -1,0 +1,36 @@
+.container {
+  max-width: 1100px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+h1 {
+  margin: 0 0 16px;
+  font-weight: 600;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: 220px 1fr 1fr auto;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.chart-wrapper {
+  height: 480px;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.messages {
+  min-height: 24px;
+  margin: 8px 0 12px;
+  .error { color: #c62828; }
+  .info  { color: #1565c0; }
+}
+
+.loading {
+  margin-top: 12px;
+}

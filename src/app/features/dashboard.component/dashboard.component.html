@@ -1,0 +1,41 @@
+<div class="container">
+  <h1>Dashboard</h1>
+
+  <form class="filters" (ngSubmit)="submit()" [formGroup]="form">
+    <mat-form-field appearance="outline">
+      <mat-label>Tipo de gráfico</mat-label>
+      <mat-select formControlName="tipoGrafico" required>
+        <mat-option value="pie">Pizza</mat-option>
+        <mat-option value="bar">Barras</mat-option>
+        <mat-option value="line">Linhas</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Data inicial</mat-label>
+      <input matInput [matDatepicker]="dpStart" formControlName="dataInicio" required>
+      <mat-datepicker-toggle matSuffix [for]="dpStart"></mat-datepicker-toggle>
+      <mat-datepicker #dpStart></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Data final</mat-label>
+      <input matInput [matDatepicker]="dpEnd" formControlName="dataFim" required>
+      <mat-datepicker-toggle matSuffix [for]="dpEnd"></mat-datepicker-toggle>
+      <mat-datepicker #dpEnd></mat-datepicker>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="loading()">Carregar</button>
+  </form>
+
+  <div class="messages">
+    <div class="error" *ngIf="errorMsg()">{{ errorMsg() }}</div>
+    <div class="info" *ngIf="infoMsg()">{{ infoMsg() }}</div>
+  </div>
+
+  <div class="chart-wrapper" *ngIf="!infoMsg() && !errorMsg()">
+    <canvas id="chartCanvas"></canvas>
+  </div>
+
+  <div class="loading" *ngIf="loading()">Carregando...</div>
+</div>
