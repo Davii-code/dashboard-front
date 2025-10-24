@@ -1,41 +1,96 @@
-<div class="container">
-  <h1>Dashboard</h1>
+<div class="page">
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">Δ</span>
+      <h1>Dashboard Financeiro</h1>
+    </div>
 
-  <form class="filters" (ngSubmit)="submit()" [formGroup]="form">
-    <mat-form-field appearance="outline">
-      <mat-label>Tipo de gráfico</mat-label>
-      <mat-select formControlName="tipoGrafico" required>
-        <mat-option value="pie">Pizza</mat-option>
-        <mat-option value="bar">Barras</mat-option>
-        <mat-option value="line">Linhas</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <!-- 👇 novo wrapper -->
+    <div class="filters-panel">
+      <form class="filters" (ngSubmit)="submit()" [formGroup]="form">
+        <mat-form-field appearance="outline" class="dense">
+          <mat-label>Tipo</mat-label>
+          <mat-select formControlName="tipoGrafico" required>
+            <mat-option value="pie">Pizza</mat-option>
+            <mat-option value="bar">Barras</mat-option>
+            <mat-option value="line">Linhas</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Data inicial</mat-label>
-      <input matInput [matDatepicker]="dpStart" formControlName="dataInicio" required>
-      <mat-datepicker-toggle matSuffix [for]="dpStart"></mat-datepicker-toggle>
-      <mat-datepicker #dpStart></mat-datepicker>
-    </mat-form-field>
+        <mat-form-field appearance="outline" class="dense">
+          <mat-label>Data inicial</mat-label>
+          <input matInput [matDatepicker]="dpStart" formControlName="dataInicio" required>
+          <mat-datepicker-toggle matSuffix [for]="dpStart"></mat-datepicker-toggle>
+          <mat-datepicker #dpStart></mat-datepicker>
+        </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Data final</mat-label>
-      <input matInput [matDatepicker]="dpEnd" formControlName="dataFim" required>
-      <mat-datepicker-toggle matSuffix [for]="dpEnd"></mat-datepicker-toggle>
-      <mat-datepicker #dpEnd></mat-datepicker>
-    </mat-form-field>
+        <mat-form-field appearance="outline" class="dense">
+          <mat-label>Data final</mat-label>
+          <input matInput [matDatepicker]="dpEnd" formControlName="dataFim" required>
+          <mat-datepicker-toggle matSuffix [for]="dpEnd"></mat-datepicker-toggle>
+          <mat-datepicker #dpEnd></mat-datepicker>
+        </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="loading()">Carregar</button>
-  </form>
+        <button class="btn-primary" type="submit" [disabled]="loading()">
+          <span class="material-icons">search</span> Pesquisar
+        </button>
+      </form>
+    </div>
+  </header>
 
-  <div class="messages">
-    <div class="error" *ngIf="errorMsg()">{{ errorMsg() }}</div>
-    <div class="info" *ngIf="infoMsg()">{{ infoMsg() }}</div>
-  </div>
+  <!-- KPIs -->
+  <section class="kpis" *ngIf="!errorMsg()">
+    <div class="stat-card kpi-1">
+      <div class="stat-icon"><span class="material-icons">trending_up</span></div>
+      <div class="stat-title">Total</div>
+      <div class="stat-value">{{ stats.total | number:'1.2-2' }}</div>
+      <div class="stat-foot">Soma dos valores</div>
+    </div>
 
-  <div class="chart-wrapper" *ngIf="!infoMsg() && !errorMsg()">
-    <canvas id="chartCanvas"></canvas>
-  </div>
+    <div class="stat-card kpi-2">
+      <div class="stat-icon"><span class="material-icons">stacked_line_chart</span></div>
+      <div class="stat-title">Média</div>
+      <div class="stat-value">{{ stats.avg | number:'1.2-2' }}</div>
+      <div class="stat-foot">Média do período</div>
+    </div>
 
-  <div class="loading" *ngIf="loading()">Carregando...</div>
+    <div class="stat-card kpi-3">
+      <div class="stat-icon"><span class="material-icons">north_east</span></div>
+      <div class="stat-title">Máximo</div>
+      <div class="stat-value">{{ stats.max | number:'1.2-2' }}</div>
+      <div class="stat-foot">Maior ponto</div>
+    </div>
+
+    <div class="stat-card kpi-4">
+      <div class="stat-icon"><span class="material-icons">south_east</span></div>
+      <div class="stat-title">Mínimo</div>
+      <div class="stat-value">{{ stats.min | number:'1.2-2' }}</div>
+      <div class="stat-foot">Menor ponto</div>
+    </div>
+  </section>
+
+  <!-- Chart -->
+  <section class="panel">
+    <div class="panel-head">
+      <h3>Resultados por período</h3>
+      <div class="panel-actions">
+        <button class="btn-ghost" (click)="randomizeColors()" type="button">
+          <span class="material-icons">palette</span> Cores
+        </button>
+        <button class="btn-ghost" (click)="submit()" [disabled]="loading()" type="button">
+          <span class="material-icons">refresh</span> Atualizar
+        </button>
+      </div>
+    </div>
+
+    <div class="chart-area" [class.loading]="loading()">
+      <canvas id="chartCanvas"></canvas>
+      <div class="skeleton" *ngIf="loading()"></div>
+    </div>
+
+    <div class="messages">
+      <div class="error" *ngIf="errorMsg()">{{ errorMsg() }}</div>
+      <div class="info" *ngIf="infoMsg()">{{ infoMsg() }}</div>
+    </div>
+  </section>
 </div>

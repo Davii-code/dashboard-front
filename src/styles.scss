@@ -1,1 +1,32 @@
-/* You can add global styles to this file, and also import other style files */
+:root{
+  /* BRAND (vibrante) */
+  --brand-600:#7C3AED; /* violeta */
+  --brand-500:#8B5CF6;
+  --brand-400:#A78BFA;
+  --brand-300:#C4B5FD;
+
+  /* SUPPORT */
+  --success:#10B981; /* verde */
+  --warning:#F59E0B; /* âmbar */
+  --danger:#EF4444;  /* vermelho */
+  --info:#3B82F6;    /* azul */
+
+  /* NEUTROS */
+  --bg:#0F172A;      /* slate-900 */
+  --panel:#111827;   /* gray-900 */
+  --muted:#94A3B8;   /* slate-400 */
+  --text:#E5E7EB;    /* gray-200 */
+  --line:rgba(255,255,255,.08);
+}
+
+html,body{height:100%;}
+body{
+  margin:0;
+  font-family:"Inter",system-ui,Arial,Helvetica,sans-serif;
+  background: radial-gradient(1000px 600px at 10% -10%, rgba(124,58,237,.30), transparent 60%),
+  radial-gradient(1000px 600px at 110% -20%, rgba(59,130,246,.22), transparent 60%),
+  var(--bg);
+  color:var(--text);
+}
+
+.mat-mdc-form-field-subscript-wrapper{display:none;} /* layout mais limpo */

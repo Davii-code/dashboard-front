@@ -1,36 +1,203 @@
-.container {
-  max-width: 1100px;
-  margin: 24px auto;
-  padding: 0 16px;
+/* ===========================
+   Dashboard (component SCSS)
+   =========================== */
+
+.page{
+  max-width:1280px;
+  margin:28px auto;
+  padding:0 18px;
 }
 
-h1 {
-  margin: 0 0 16px;
-  font-weight: 600;
+/* ---------- Topbar / Header ---------- */
+.topbar{
+  display:grid;
+  row-gap:16px;
+  margin-bottom:18px;
+
+  .brand{
+    display:flex;
+    gap:10px;
+    align-items:center;
+
+    .logo{
+      width:36px;height:36px;display:grid;place-items:center;
+      background: linear-gradient(135deg,var(--brand-500),var(--info));
+      border-radius:10px;color:#fff;font-weight:700;
+      box-shadow:0 10px 30px rgba(124,58,237,.35);
+    }
+
+    h1{
+      font-size:20px;margin:0;font-weight:700; letter-spacing:.3px;
+    }
+  }
 }
 
-.filters {
-  display: grid;
-  grid-template-columns: 220px 1fr 1fr auto;
-  gap: 12px;
-  align-items: center;
-  margin-bottom: 16px;
+/* ---------- Painel dos filtros (mais legível) ---------- */
+.filters-panel{
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  box-shadow: 0 12px 30px rgba(0,0,0,.35);
 }
 
-.chart-wrapper {
-  height: 480px;
-  border: 1px solid rgba(0,0,0,0.08);
+/* Grid dos campos + botão */
+.filters{
+  display:grid;
+  grid-template-columns: 240px 1fr 1fr auto;
+  gap:12px;
+  align-items:center;
+}
+
+/* Densidade compacta dos form-fields */
+.dense{
+  --mat-form-field-container-height: 48px;
+  --mat-form-field-container-text-size: 14px;
+}
+
+/* ===== Overrides Angular Material (modo escuro) ===== */
+.filters .mat-mdc-form-field{
+  --field-bg: rgba(8,12,22,.70);
+  --field-border: rgba(255,255,255,.22);
+  --field-border-hover: rgba(255,255,255,.34);
+  --field-border-focus: #8B5CF6;
+  --field-label: #cbd5e1;
+  --field-text: #e5e7eb;
+}
+
+/* Fundo do input/select */
+.filters .mdc-text-field--outlined{
+  background: var(--field-bg);
   border-radius: 12px;
-  padding: 12px;
 }
 
-.messages {
-  min-height: 24px;
-  margin: 8px 0 12px;
-  .error { color: #c62828; }
-  .info  { color: #1565c0; }
+/* Borda padrão / hover / focus */
+.filters .mdc-notched-outline__leading,
+.filters .mdc-notched-outline__trailing,
+.filters .mdc-notched-outline__notch{ border-color: var(--field-border) !important; }
+
+.filters .mat-mdc-form-field:hover .mdc-notched-outline__leading,
+.filters .mat-mdc-form-field:hover .mdc-notched-outline__trailing,
+.filters .mat-mdc-form-field:hover .mdc-notched-outline__notch{ border-color: var(--field-border-hover) !important; }
+
+.filters .mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+.filters .mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing,
+.filters .mat-mdc-form-field.mat-focused .mdc-notched-outline__notch{ border-color: var(--field-border-focus) !important; }
+
+/* Label, texto e placeholders */
+.filters .mat-mdc-form-field-label{ color: var(--field-label) !important; }
+.filters .mat-mdc-input-element,
+.filters .mat-mdc-select-value-text{ color: var(--field-text) !important; }
+.filters .mat-mdc-select-placeholder{ color:#94a3b8 !important; }
+
+/* Ícones (seta do select e calendário) */
+.filters .mat-mdc-select-arrow,
+.filters .mat-datepicker-toggle-default-icon,
+.filters .mat-mdc-icon-button{
+  color: var(--field-text) !important;
+  fill: var(--field-text) !important;
 }
 
-.loading {
-  margin-top: 12px;
+/* Botão alinhado à altura dos campos */
+.filters .btn-primary{
+  height:48px;
+  padding:0 16px;
+  border-radius:12px;
+}
+
+/* ---------- KPIs ---------- */
+.kpis{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-bottom:16px;
+}
+
+.stat-card{
+  position:relative;
+  padding:16px;
+  border-radius:16px;
+  overflow:hidden;
+  background:linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  border:1px solid var(--line);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 10px 30px rgba(0,0,0,.18);
+
+  .stat-icon{
+    position:absolute;top:12px;right:12px;
+    width:42px;height:42px;border-radius:12px;
+    display:grid;place-items:center;color:#fff;opacity:.95;
+  }
+
+  .stat-title{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+  .stat-value{font-size:26px;font-weight:700;margin:4px 0 6px}
+  .stat-foot{font-size:12px;color:var(--muted)}
+}
+
+/* cores dos KPIs (gradientes) */
+.kpi-1 .stat-icon{background:linear-gradient(135deg,#22D3EE,#3B82F6);}
+.kpi-2 .stat-icon{background:linear-gradient(135deg,#34D399,#10B981);}
+.kpi-3 .stat-icon{background:linear-gradient(135deg,#F59E0B,#F97316);}
+.kpi-4 .stat-icon{background:linear-gradient(135deg,#FB7185,#EF4444);}
+
+/* ---------- Painel do gráfico ---------- */
+.panel{
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:rgba(255,255,255,.03);
+  box-shadow:0 10px 30px rgba(0,0,0,.18);
+
+  .panel-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 16px;border-bottom:1px solid var(--line);
+    h3{margin:0;font-size:16px;font-weight:700}
+  }
+
+  .panel-actions{display:flex;gap:8px;}
+}
+
+.chart-area{
+  position:relative;height:420px;padding:10px;
+  &.loading{opacity:.6;filter:grayscale(.1)}
+}
+
+.skeleton{
+  position:absolute;inset:0;border-radius:0 0 16px 16px;
+  background:linear-gradient(100deg, rgba(255,255,255,.05) 20%, rgba(255,255,255,.12) 40%, rgba(255,255,255,.05) 60%);
+  background-size:200% 100%;animation:shimmer 1.2s infinite;
+}
+
+@keyframes shimmer{to{background-position-x:-200%;}}
+
+/* ---------- Mensagens ---------- */
+.messages{
+  padding:10px 16px 14px;
+  .error{color:#ff7b7b}
+  .info{color:#96c7ff}
+}
+
+/* ---------- Botões reutilizáveis ---------- */
+.btn-primary,.btn-ghost{
+  display:inline-flex;gap:8px;align-items:center;
+  border-radius:12px;border:1px solid var(--line);
+  padding:10px 14px;font-weight:600;cursor:pointer;
+  background:transparent;color:var(--text);
+}
+
+.btn-primary{
+  background:linear-gradient(135deg,var(--brand-600),var(--info));
+  border:0;box-shadow:0 12px 28px rgba(124,58,237,.35);
+}
+.btn-primary:disabled{opacity:.6;cursor:not-allowed}
+.btn-ghost:hover{background:rgba(255,255,255,.06)}
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 980px){
+  .filters{ grid-template-columns: 1fr; }
+  .kpis{ grid-template-columns: repeat(2,1fr); }
+}
+
+@media (max-width: 560px){
+  .kpis{ grid-template-columns: 1fr; }
+  .chart-area{ height: 320px; }
 }
