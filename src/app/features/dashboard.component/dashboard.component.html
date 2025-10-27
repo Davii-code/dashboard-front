@@ -5,7 +5,6 @@
       <h1>Dashboard Financeiro</h1>
     </div>
 
-    <!-- 👇 novo wrapper -->
     <div class="filters-panel">
       <form class="filters" (ngSubmit)="submit()" [formGroup]="form">
         <mat-form-field appearance="outline" class="dense">
@@ -32,13 +31,14 @@
         </mat-form-field>
 
         <button class="btn-primary" type="submit" [disabled]="loading()">
-          <span class="material-icons">search</span> Pesquisar
+          <span class="material-icons">search</span>
+          Pesquisar
         </button>
       </form>
     </div>
   </header>
 
-  <!-- KPIs -->
+  <!-- KPIs linha 1 -->
   <section class="kpis" *ngIf="!errorMsg()">
     <div class="stat-card kpi-1">
       <div class="stat-icon"><span class="material-icons">trending_up</span></div>
@@ -50,26 +50,61 @@
     <div class="stat-card kpi-2">
       <div class="stat-icon"><span class="material-icons">stacked_line_chart</span></div>
       <div class="stat-title">Média</div>
-      <div class="stat-value">{{ stats.avg | number:'1.2-2' }}</div>
+      <div class="stat-value">{{ stats.media | number:'1.2-2' }}</div>
       <div class="stat-foot">Média do período</div>
     </div>
 
     <div class="stat-card kpi-3">
       <div class="stat-icon"><span class="material-icons">north_east</span></div>
       <div class="stat-title">Máximo</div>
-      <div class="stat-value">{{ stats.max | number:'1.2-2' }}</div>
+      <div class="stat-value">{{ stats.maximo | number:'1.2-2' }}</div>
       <div class="stat-foot">Maior ponto</div>
     </div>
 
     <div class="stat-card kpi-4">
       <div class="stat-icon"><span class="material-icons">south_east</span></div>
       <div class="stat-title">Mínimo</div>
-      <div class="stat-value">{{ stats.min | number:'1.2-2' }}</div>
+      <div class="stat-value">{{ stats.minimo | number:'1.2-2' }}</div>
       <div class="stat-foot">Menor ponto</div>
     </div>
   </section>
 
-  <!-- Chart -->
+  <!-- KPIs linha 2 (insights de negócio) -->
+  <section class="kpis kpis-extra" *ngIf="!errorMsg()">
+    <div class="stat-card kpi-5">
+      <div class="stat-icon"><span class="material-icons">shopping_cart</span></div>
+      <div class="stat-title">Vendas</div>
+      <div class="stat-value">{{ stats.qtdVendas }}</div>
+      <div class="stat-foot">Qtde de vendas no período</div>
+    </div>
+
+    <div class="stat-card kpi-6">
+      <div class="stat-icon"><span class="material-icons">payments</span></div>
+      <div class="stat-title">Ticket Médio</div>
+      <div class="stat-value">{{ stats.ticketMedio | number:'1.2-2' }}</div>
+      <div class="stat-foot">Valor médio por venda</div>
+    </div>
+
+    <div class="stat-card kpi-7">
+      <div class="stat-icon"><span class="material-icons">star</span></div>
+      <div class="stat-title">Top Produto</div>
+      <div class="stat-value">{{ stats.produtoTopNome }}</div>
+      <div class="stat-foot">
+        Total {{ stats.produtoTopValor | number:'1.2-2' }}
+      </div>
+    </div>
+
+    <div class="stat-card kpi-8">
+      <div class="stat-icon"><span class="material-icons">category</span></div>
+      <div class="stat-title">Top Categoria</div>
+      <div class="stat-value">{{ stats.categoriaTopNome }}</div>
+      <div class="stat-foot">
+        Total {{ stats.categoriaTopValor | number:'1.2-2' }}
+      </div>
+    </div>
+  </section>
+
+  <!-- Gráfico -->
   <section class="panel">
     <div class="panel-head">
       <h3>Resultados por período</h3>

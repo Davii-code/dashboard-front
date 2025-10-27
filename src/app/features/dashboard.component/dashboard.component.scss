@@ -21,24 +21,38 @@
 
     .logo{
       width:36px;height:36px;display:grid;place-items:center;
+      /* gradiente da logo agora em tons de azul claro */
       background: linear-gradient(135deg,var(--brand-500),var(--info));
-      border-radius:10px;color:#fff;font-weight:700;
-      box-shadow:0 10px 30px rgba(124,58,237,.35);
+      border-radius:10px;
+      color:#fff;
+      font-weight:700;
+      box-shadow:0 10px 30px rgba(59,130,246,.3);
     }
 
     h1{
-      font-size:20px;margin:0;font-weight:700; letter-spacing:.3px;
+      font-size:20px;
+      margin:0;
+      font-weight:700;
+      letter-spacing:.3px;
+      color: var(--text);
     }
   }
 }
 
-/* ---------- Painel dos filtros (mais legível) ---------- */
+/* ---------- Painel dos filtros ---------- */
 .filters-panel{
-  padding: 14px;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,.14);
-  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-  box-shadow: 0 12px 30px rgba(0,0,0,.35);
+  padding:14px;
+  border-radius:16px;
+
+  /* borda agora usa --line (cinza translúcido escuro suave) */
+  border:1px solid var(--line);
+
+  /* fundo branco translúcido, com blur leve glass */
+  background: rgba(255,255,255,.7);
+  backdrop-filter: blur(8px);
+
+  /* sombra suave azulada em vez de sombra pesada preta */
+  box-shadow:0 20px 40px rgba(15,23,42,.08);
 }
 
 /* Grid dos campos + botão */
@@ -49,48 +63,61 @@
   align-items:center;
 }
 
-/* Densidade compacta dos form-fields */
+/* altura compacta */
 .dense{
   --mat-form-field-container-height: 48px;
   --mat-form-field-container-text-size: 14px;
 }
 
-/* ===== Overrides Angular Material (modo escuro) ===== */
+/* ===== Overrides Angular Material (tema claro) ===== */
+/* Aqui só mudamos as variáveis de cor. Layout do field continua igual. */
 .filters .mat-mdc-form-field{
-  --field-bg: rgba(8,12,22,.70);
-  --field-border: rgba(255,255,255,.22);
-  --field-border-hover: rgba(255,255,255,.34);
-  --field-border-focus: #8B5CF6;
-  --field-label: #cbd5e1;
-  --field-text: #e5e7eb;
+  --field-bg: rgba(255,255,255,.75);       /* fundo claro translúcido */
+  --field-border: rgba(0,0,0,.12);         /* borda cinza leve */
+  --field-border-hover: rgba(0,0,0,.20);   /* hover um pouquinho mais escuro */
+  --field-border-focus: #60A5FA;           /* azul clarinho em foco */
+  --field-label: #64748B;                  /* slate-500 */
+  --field-text: #1E293B;                   /* slate-800 */
 }
 
-/* Fundo do input/select */
+/* fundo do input/select */
 .filters .mdc-text-field--outlined{
   background: var(--field-bg);
-  border-radius: 12px;
+  border-radius:12px;
 }
 
 /* Borda padrão / hover / focus */
 .filters .mdc-notched-outline__leading,
 .filters .mdc-notched-outline__trailing,
-.filters .mdc-notched-outline__notch{ border-color: var(--field-border) !important; }
+.filters .mdc-notched-outline__notch{
+  border-color: var(--field-border) !important;
+}
 
 .filters .mat-mdc-form-field:hover .mdc-notched-outline__leading,
 .filters .mat-mdc-form-field:hover .mdc-notched-outline__trailing,
-.filters .mat-mdc-form-field:hover .mdc-notched-outline__notch{ border-color: var(--field-border-hover) !important; }
+.filters .mat-mdc-form-field:hover .mdc-notched-outline__notch{
+  border-color: var(--field-border-hover) !important;
+}
 
 .filters .mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
 .filters .mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing,
-.filters .mat-mdc-form-field.mat-focused .mdc-notched-outline__notch{ border-color: var(--field-border-focus) !important; }
+.filters .mat-mdc-form-field.mat-focused .mdc-notched-outline__notch{
+  border-color: var(--field-border-focus) !important;
+}
 
-/* Label, texto e placeholders */
-.filters .mat-mdc-form-field-label{ color: var(--field-label) !important; }
+/* label, texto e placeholders agora escuros/acinzentados */
+.filters .mat-mdc-form-field-label{
+  color: var(--field-label) !important;
+}
 .filters .mat-mdc-input-element,
-.filters .mat-mdc-select-value-text{ color: var(--field-text) !important; }
-.filters .mat-mdc-select-placeholder{ color:#94a3b8 !important; }
+.filters .mat-mdc-select-value-text{
+  color: var(--field-text) !important;
+}
+.filters .mat-mdc-select-placeholder{
+  color:#94a3b8 !important;
+}
 
-/* Ícones (seta do select e calendário) */
+/* ícones (seta select, calendário) agora escuros */
 .filters .mat-mdc-select-arrow,
 .filters .mat-datepicker-toggle-default-icon,
 .filters .mat-mdc-icon-button{
@@ -98,7 +125,7 @@
   fill: var(--field-text) !important;
 }
 
-/* Botão alinhado à altura dos campos */
+/* botão alinhado à altura dos campos */
 .filters .btn-primary{
   height:48px;
   padding:0 16px;
@@ -118,78 +145,220 @@
   padding:16px;
   border-radius:16px;
   overflow:hidden;
-  background:linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+
+  /* cards agora bem claros, “cartão branco elevado” */
+  background:linear-gradient(
+      135deg,
+      rgba(255,255,255,.9),
+      rgba(255,255,255,.7)
+  );
   border:1px solid var(--line);
-  backdrop-filter: blur(6px);
-  box-shadow: 0 10px 30px rgba(0,0,0,.18);
+
+  /* blur leve só pra dar cara de vidro */
+  backdrop-filter: blur(10px);
+
+  /* sombra suave clara (não mais sombra preta pesada) */
+  box-shadow:0 16px 32px rgba(15,23,42,.08);
 
   .stat-icon{
-    position:absolute;top:12px;right:12px;
-    width:42px;height:42px;border-radius:12px;
-    display:grid;place-items:center;color:#fff;opacity:.95;
+    position:absolute;
+    top:12px;
+    right:12px;
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    display:grid;
+    place-items:center;
+    color:#fff;
+    opacity:.95;
+    /* continua sendo gradiente coloridinho mais escuro,
+       o contraste com branco fica lindo */
   }
 
-  .stat-title{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-  .stat-value{font-size:26px;font-weight:700;margin:4px 0 6px}
-  .stat-foot{font-size:12px;color:var(--muted)}
+  .stat-title{
+    font-size:12px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.08em
+  }
+  .stat-value{
+    font-size:26px;
+    font-weight:700;
+    margin:4px 0 6px;
+    color:var(--text);
+  }
+  .stat-foot{
+    font-size:12px;
+    color:var(--muted)
+  }
 }
 
-/* cores dos KPIs (gradientes) */
-.kpi-1 .stat-icon{background:linear-gradient(135deg,#22D3EE,#3B82F6);}
-.kpi-2 .stat-icon{background:linear-gradient(135deg,#34D399,#10B981);}
-.kpi-3 .stat-icon{background:linear-gradient(135deg,#F59E0B,#F97316);}
-.kpi-4 .stat-icon{background:linear-gradient(135deg,#FB7185,#EF4444);}
+/* cores dos KPIs (mantemos saturadas pra dar foco visual) */
+.kpi-1 .stat-icon{
+  background:linear-gradient(135deg,#60A5FA,#3B82F6);
+}
+.kpi-2 .stat-icon{
+  background:linear-gradient(135deg,#34D399,#10B981);
+}
+.kpi-3 .stat-icon{
+  background:linear-gradient(135deg,#F59E0B,#F97316);
+}
+.kpi-4 .stat-icon{
+  background:linear-gradient(135deg,#FB7185,#EF4444);
+}
 
 /* ---------- Painel do gráfico ---------- */
 .panel{
   border:1px solid var(--line);
   border-radius:16px;
-  background:rgba(255,255,255,.03);
-  box-shadow:0 10px 30px rgba(0,0,0,.18);
+
+  /* cartão branco translúcido com blur leve */
+  background:rgba(255,255,255,.8);
+  backdrop-filter: blur(8px);
+
+  box-shadow:0 16px 32px rgba(15,23,42,.08);
 
   .panel-head{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:14px 16px;border-bottom:1px solid var(--line);
-    h3{margin:0;font-size:16px;font-weight:700}
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 16px;
+    border-bottom:1px solid var(--line);
+
+    h3{
+      margin:0;
+      font-size:16px;
+      font-weight:700;
+      color: var(--text);
+    }
   }
 
-  .panel-actions{display:flex;gap:8px;}
+  .panel-actions{
+    display:flex;
+    gap:8px;
+  }
 }
 
 .chart-area{
-  position:relative;height:420px;padding:10px;
-  &.loading{opacity:.6;filter:grayscale(.1)}
+  position:relative;
+  height:420px;
+  padding:10px;
+
+  &.loading{
+    opacity:.6;
+    filter:grayscale(.1);
+  }
 }
 
+/* skeleton agora cinza translúcido em vez de “brilho branco” */
 .skeleton{
-  position:absolute;inset:0;border-radius:0 0 16px 16px;
-  background:linear-gradient(100deg, rgba(255,255,255,.05) 20%, rgba(255,255,255,.12) 40%, rgba(255,255,255,.05) 60%);
-  background-size:200% 100%;animation:shimmer 1.2s infinite;
+  position:absolute;
+  inset:0;
+  border-radius:0 0 16px 16px;
+  background:linear-gradient(
+      100deg,
+      rgba(0,0,0,.04) 20%,
+      rgba(0,0,0,.08) 40%,
+      rgba(0,0,0,.04) 60%
+  );
+  background-size:200% 100%;
+  animation:shimmer 1.2s infinite;
 }
 
-@keyframes shimmer{to{background-position-x:-200%;}}
+@keyframes shimmer{
+  to{background-position-x:-200%;}
+}
 
 /* ---------- Mensagens ---------- */
 .messages{
   padding:10px 16px 14px;
-  .error{color:#ff7b7b}
-  .info{color:#96c7ff}
+
+  .error{
+    color:#dc2626; /* vermelho mais consistente no claro */
+  }
+  .info{
+    color:#2563eb; /* azul mais forte, legível no claro */
+  }
 }
 
 /* ---------- Botões reutilizáveis ---------- */
-.btn-primary,.btn-ghost{
-  display:inline-flex;gap:8px;align-items:center;
-  border-radius:12px;border:1px solid var(--line);
-  padding:10px 14px;font-weight:600;cursor:pointer;
-  background:transparent;color:var(--text);
+.btn-primary,
+.btn-ghost{
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  border-radius:12px;
+  border:1px solid var(--line);
+  padding:10px 14px;
+  font-weight:600;
+  cursor:pointer;
+  background:transparent;
+  color:var(--text);
 }
 
+/* botão primário agora usa gradiente de azul claro */
 .btn-primary{
-  background:linear-gradient(135deg,var(--brand-600),var(--info));
-  border:0;box-shadow:0 12px 28px rgba(124,58,237,.35);
+  background:linear-gradient(
+      135deg,
+      var(--brand-600),
+      var(--info)
+  );
+  border:0;
+  box-shadow:0 12px 28px rgba(96,165,250,.4);
+  color:#1E293B; /* texto escuro sobre azul claro */
 }
-.btn-primary:disabled{opacity:.6;cursor:not-allowed}
-.btn-ghost:hover{background:rgba(255,255,255,.06)}
+
+.btn-primary:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+/* hover ghost agora usa leve cinza escuro transparente (não mais branco translúcido) */
+.btn-ghost:hover{
+  background:rgba(0,0,0,.03);
+}
+
+/* ---------- Snackbar / Toasts ---------- */
+.toast-error {
+  .mdc-snackbar__surface {
+    background: linear-gradient(130deg, #7f1d1d 0%, #dc2626 60%);
+    color: #fff;
+    border-radius: .6rem;
+    box-shadow: 0 20px 40px rgba(220,38,38,.4);
+    border: 1px solid rgba(0,0,0,.15);
+  }
+
+  .mdc-snackbar__label,
+  .mdc-button__label {
+    color: #fff !important;
+    font-weight: 500;
+    font-size: .8rem;
+    line-height: 1.2;
+  }
+}
+
+.toast-info {
+  .mdc-snackbar__surface {
+    background: radial-gradient(circle at 0% 0%, #2563eb 0%, #60A5FA 70%);
+    color: #fff;
+    border-radius: .6rem;
+    box-shadow: 0 20px 40px rgba(37,99,235,.3);
+    border: 1px solid rgba(0,0,0,.15);
+  }
+
+  .mdc-snackbar__label,
+  .mdc-button__label {
+    color: #fff !important;
+    font-weight: 500;
+    font-size: .8rem;
+    line-height: 1.2;
+  }
+}
+
+/* snackbar largura */
+.mdc-snackbar {
+  max-width: min(360px, calc(100% - 2rem));
+}
 
 /* ---------- Responsivo ---------- */
 @media (max-width: 980px){
