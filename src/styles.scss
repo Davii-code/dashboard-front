@@ -1,115 +1,81 @@
-/* ============================
-   OVERRIDE: Datepicker (tema claro azul, fundo sólido)
-   ============================ */
+/* ==========================================
+   OVERRIDE: mat-select (painel de opções)
+   Mesmo visual sólido/branco do datepicker
+   ========================================== */
 
-/* Contêiner do popover do calendário */
-.cdk-overlay-pane .mat-datepicker-content,
-.cdk-overlay-pane .mat-calendar {
-  /* agora 100% sólido branco */
-  background-color: #ffffff !important;
+/* painel flutuante que aparece quando abre o select */
+.cdk-overlay-pane .mat-mdc-select-panel {
+  background-color: #ffffff !important; /* branco sólido */
   color: var(--text) !important;
 
-  border-radius: 12px;
-  border: 1px solid var(--line);
+  border-radius: 12px !important;
+  border: 1px solid var(--line) !important;
 
-  /* sombra um pouco mais forte pra destacar bem do restante da tela */
   box-shadow:
     0 28px 64px rgba(30,41,59,.22),
-    0 6px 16px rgba(30,41,59,.12);
+    0 6px 16px rgba(30,41,59,.12) !important;
+
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
 }
 
-/* Header do calendário (mês/ano e setas) */
-.cdk-overlay-pane .mat-calendar-header {
-  /* continua com um degradê azul clarinho,
-     mas agora por cima de fundo branco opaco */
-  background: linear-gradient(
-      90deg,
-      var(--brand-300) 0%,
-      rgba(255,255,255,1) 70%
-  ) !important;
-
-  color: var(--text) !important;
-
-  border-bottom: 1px solid var(--line);
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  padding-top: 8px;
-  padding-bottom: 4px;
-}
-
-/* Botões (ex: OCT 2025, setinhas < > ) */
-.cdk-overlay-pane .mat-calendar-period-button,
-.cdk-overlay-pane .mat-calendar-previous-button,
-.cdk-overlay-pane .mat-calendar-next-button,
-.cdk-overlay-pane .mat-mdc-icon-button,
-.cdk-overlay-pane .mat-mdc-icon-button .mat-mdc-button-touch-target {
-  color: var(--text) !important;
-  fill: var(--text) !important;
-}
-
-/* Cabeçalho dos dias da semana (S M T W T F S) */
-.cdk-overlay-pane .mat-calendar-table-header th {
-  color: var(--muted) !important;
+/* cada opção dentro do select */
+.cdk-overlay-pane .mat-mdc-option {
+  min-height: 40px;
+  line-height: 40px;
+  font-size: 14px;
   font-weight: 500;
-  background-color: transparent !important;
-  border: 0 !important;
-}
 
-/* Label de mês/ano que aparece dentro da grade (e.g. "OCT") */
-.cdk-overlay-pane .mat-calendar-body-label {
-  color: var(--brand-500) !important;
-  font-size: 0.75rem;
-  font-weight: 500;
-  opacity: .9;
-  background: transparent !important;
-}
-
-/* Célula de dia normal */
-.cdk-overlay-pane .mat-calendar-body-cell-content {
   color: var(--text) !important;
   background-color: transparent !important;
-  border-radius: 6px;
-  font-weight: 500;
-  box-shadow: none !important;
-  border: 0 !important;
+  border-radius: 8px;
+
+  /* espaçamento horizontal agradável */
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+  margin: 2px 8px !important;
 }
 
-/* Hover/foco no dia (não selecionado) */
-.cdk-overlay-pane .mat-calendar-body-cell-content.mat-calendar-body-hover,
-.cdk-overlay-pane .mat-calendar-body-cell-content.mat-focus-indicator:hover {
+/* opção atualmente selecionada (check azul do Angular Material) */
+.cdk-overlay-pane .mat-mdc-option.mdc-list-item--selected .mdc-list-item__primary-text {
+  color: var(--text) !important;
+  font-weight: 600;
+}
+
+/* ícone de check da opção selecionada */
+.cdk-overlay-pane .mat-pseudo-checkbox-checked,
+.cdk-overlay-pane .mat-pseudo-checkbox-indeterminate {
+  background-color: var(--brand-500) !important; /* azul médio */
+  border-color: var(--brand-500) !important;
+}
+
+/* estado hover/foco de uma opção (quando passa o mouse) */
+.cdk-overlay-pane .mat-mdc-option:hover,
+.cdk-overlay-pane .mat-mdc-option.mat-mdc-option-active:not(.mdc-list-item--disabled) {
   background-color: rgba(96,165,250,.15) !important; /* azul clarinho translúcido */
   color: var(--text) !important;
-  border-radius: 6px;
 }
 
-/* Hoje, quando NÃO está selecionado:
-   só um contorno azul médio */
-.cdk-overlay-pane
-.mat-calendar-body-today:not(.mat-calendar-body-selected)
-.mat-calendar-body-cell-content {
-  border: 1px solid var(--brand-500) !important;
-  color: var(--text) !important;
+/* remover aquele cinza padrão angular material quando desabilitada */
+.cdk-overlay-pane .mat-mdc-option.mdc-list-item--disabled {
+  opacity: .4;
+  color: var(--muted) !important;
   background-color: transparent !important;
-  border-radius: 6px;
-  font-weight: 600;
+  cursor: not-allowed;
 }
 
-/* Dia selecionado */
-.cdk-overlay-pane .mat-calendar-body-selected,
-.cdk-overlay-pane .mat-calendar-body-selected .mat-calendar-body-cell-content {
-  background-color: var(--brand-500) !important; /* azul médio #3B82F6 */
-  color: #fff !important;
-  border-radius: 6px;
-  box-shadow: 0 8px 20px rgba(59,130,246,.4) !important;
-  font-weight: 600;
-  border: 0 !important;
+/* barra de rolagem interna do painel (quando tem muitas opções) */
+.cdk-overlay-pane .mat-mdc-select-panel::-webkit-scrollbar {
+  width: 6px;
 }
-
-/* Botão ativo no modo "selecionar mês/ano" */
-.cdk-overlay-pane .mat-calendar-body-cell-content.mat-calendar-body-active {
-  background-color: var(--brand-500) !important;
-  color: #fff !important;
-  border-radius: 6px;
-  font-weight: 600;
-  box-shadow: 0 8px 20px rgba(59,130,246,.4) !important;
+.cdk-overlay-pane .mat-mdc-select-panel::-webkit-scrollbar-track {
+  background: rgba(0,0,0,.05);
+  border-radius: 8px;
+}
+.cdk-overlay-pane .mat-mdc-select-panel::-webkit-scrollbar-thumb {
+  background: rgba(96,165,250,.4); /* azul clarinho semi transparente */
+  border-radius: 8px;
+}
+.cdk-overlay-pane .mat-mdc-select-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(59,130,246,.6); /* azul um pouco mais forte */
 }
